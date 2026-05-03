@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Richa 🎉</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* IMAGE ALIGN */
+        .slide:nth-child(2) img {
+            object-position: center top;
+        }
+
+        .slide:nth-child(3) img {
+            object-position: center 20%;
+        }
+
+        .slide:nth-child(4) img {
+            object-position: center 25%;
+        }
+
+        .slide:nth-child(5) img {
+            object-position: center 30%;
+        }
+
+        .slide:nth-child(6) img {
+            object-position: center 20%;
+        }
+
+        .slide:nth-child(7) img {
+            object-position: center 20%;
+        }
+
+        /* INTRO */
+        .intro-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #6dd5ed);
+        }
+
+        /* TEXT */
+        .text {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+
+            width: 90%;
+            max-width: 900px;
+
+            font-family: 'Parisienne', cursive;
+            font-size: 2.2rem;
+            color: #fff;
+
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(3px);
+
+            padding: 8px 14px;
+            border-radius: 10px;
+
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+
+        /* POSITION */
+        .slide:nth-child(2) .text {
+            top: 10%;
+        }
+
+        .slide:nth-child(n+3):not(.last) .text {
+            bottom: 10%;
+        }
+
+        /* INTRO TEXT */
+        .intro-text {
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            background: none;
+        }
+
+        /* LAST */
+        .slide.last .text {
+            bottom: 8%;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #14b8a6;
+            background: none;
+        }
+
+        /* FOOTER */
+        .footer {
+            font-weight: bold;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        /* BUTTON */
+        .btn {
+            position: fixed;
+            bottom: 30px;
+            padding: 10px 20px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(3px);
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0.35;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 1;
+        }
+
+        #nextBtn {
+            right: 40px;
+        }
+
+        #backBtn {
+            left: 40px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container"></div>
+
+    <div class="btn" id="backBtn">← Back</div>
+    <div class="btn" id="nextBtn">Next →</div>
+
+    <script>
+
+        /* DATA */
+        const slidesData = [
+            { custom: true, text: "This is your birthday surprise 🎁" },
+
+            {
+                img: "https://raw.githubusercontent.com/Skala1008/di-birthday-site/main/1000365106.jpg",
+                text: "96% sirf ek number nahi hai… it shows kitna consistent aur focused tu actually hai."
+            },
+
+            {
+                img: "https://raw.githubusercontent.com/Skala1008/di-birthday-site/main/1000365121.png",
+                text: "Sach bolu, tu smart hai — par sirf padhai mein nahi, tu situations ko samajhne mein bhi kaafi ahead hai."
+            },
+
+            {
+                img: "https://raw.githubusercontent.com/Skala1008/di-birthday-site/main/1000365122.png",
+                text: "Log start toh kar dete hain, par usme better hote rehna — wo sabke bas ki baat nahi hoti, aur tu wo consistently karti hai."
+            },
+
+            {
+                img: "https://raw.githubusercontent.com/Skala1008/di-birthday-site/main/1000365125.png",
+                text: "Tu sirf result nahi deti, tu process ko bhi seriously leti hai — aur wahi difference hai."
+            },
+
+            {
+                img: "https://raw.githubusercontent.com/Skala1008/di-birthday-site/main/1000365126.png",
+                text: "Sabse strong baat ye hai ki itna achieve karne ke baad bhi tu bilkul grounded aur simple rehti hai."
+            },
+
+            {
+                img: "https://raw.githubusercontent.com/Skala1008/di-birthday-site/main/1000365127.png",
+                text: "Happy Birthday Richa 🎉 Aise hi focused, strong aur real rehna.", final: true
+            }
+        ];
+
+        const container = document.getElementById("container");
+
+        slidesData.forEach(s => {
+            const slide = document.createElement("div");
+            slide.className = "slide" + (s.final ? " last" : "");
+
+            if (s.custom) {
+                slide.innerHTML = `<div class="intro-bg"></div><div class="text intro-text">${s.text}</div>`;
+            } else {
+                slide.innerHTML = `<img src="${s.img}"><div class="text">${s.text}</div>`;
+            }
+
+            if (s.final) {
+                const footer = document.createElement("div");
+                footer.className = "footer";
+                footer.innerText = "Sayam";
+                slide.appendChild(footer);
+            }
+
+            container.appendChild(slide);
+        });
+
+        const slides = document.querySelectorAll(".slide");
+        let current = 0;
+
+        /* TYPEWRITER WITH SPEED */
+        function typeText(el, speed = 18) {
+            const txt = el.innerHTML;
+            el.innerHTML = "";
+            let i = 0;
+
+            function type() {
+                if (i < txt.length) {
+                    el.innerHTML += txt.charAt(i++);
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        /* FLOAT */
+        function addFloating(el) {
+            gsap.to(el, {
+                y: "-=6",
+                duration: 2,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true
+            });
+        }
+
+        /* INIT */
+        gsap.set(slides[0], { opacity: 1 });
+        let firstText = slides[0].querySelector(".text");
+        typeText(firstText);
+        addFloating(firstText);
+
+        /* NEXT */
+        function nextSlide() {
+            if (current >= slides.length - 1) return;
+
+            gsap.to(slides[current], { opacity: 0, duration: 0.4 });
+            current++;
+
+            gsap.set(slides[current], { opacity: 1 });
+
+            const txt = slides[current].querySelector(".text");
+
+            if (current === 4) { // 🔥 punch slide
+                typeText(txt, 35);
+            } else {
+                typeText(txt, 18);
+            }
+
+            addFloating(txt);
+
+            document.getElementById("backBtn").style.display = "block";
+
+            if (current === slides.length - 1) {
+                document.getElementById("nextBtn").style.display = "none";
+            }
+        }
+
+        /* BACK */
+        function prevSlide() {
+            if (current <= 0) return;
+
+            gsap.to(slides[current], { opacity: 0, duration: 0.3 });
+            current--;
+
+            gsap.set(slides[current], { opacity: 1 });
+
+            const txt = slides[current].querySelector(".text");
+
+            if (current === 4) {
+                typeText(txt, 35);
+            } else {
+                typeText(txt, 18);
+            }
+
+            addFloating(txt);
+
+            document.getElementById("nextBtn").style.display = "block";
+
+            if (current === 0) {
+                document.getElementById("backBtn").style.display = "none";
+            }
+        }
+
+        document.getElementById("nextBtn").onclick = nextSlide;
+        document.getElementById("backBtn").onclick = prevSlide;
+
+    </script>
+
+</body>
+
+</html>
